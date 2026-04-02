@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }} - Details</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 20px; line-height: 1.6; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-header { border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .price { font-size: 2em; color: #b12704; font-weight: bold; }
+        .btn { padding: 12px 20px; border-radius: 5px; text-decoration: none; display: inline-block; font-weight: bold; }
+        .btn-cart { background-color: #ffa41c; color: black; border: 1px solid #ff8f00; }
+        .btn-review { background-color: #007bff; color: white; margin-top: 10px; }
+        .review-card { background: #fafafa; border: 1px solid #ddd; padding: 15px; margin-top: 15px; border-radius: 5px; }
+        .badge-verified { background-color: #d4edda; color: #155724; padding: 3px 8px; border-radius: 3px; font-size: 0.8em; font-weight: bold; border: 1px solid #c3e6cb; }
+        .badge-unverified { background-color: #e2e3e5; color: #383d41; padding: 3px 8px; border-radius: 3px; font-size: 0.8em; font-style: italic; border: 1px solid #d6d8db; }
+        .rating { color: #f39c12; font-weight: bold; }
+        .back-link { display: block; margin-bottom: 20px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="{% url 'product_list' %}" class="back-link">← Back to Shopping</a>
+
+    <div class="product-header">
+        <h1>{{ product.name }}</h1>
+        <p>Sold by: <strong>{{ product.store.name }}</strong></p>
+        <p class="price">${{ product.price }}</p>
+        <p>{{ product.description }}</p>
+        
+        {% if user.is_authenticated %}
+            {% if user.profile.role == 'buyer' %}
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-cart">Add to Cart</a>
+            {% else %}
+                <p style="color: #666;"><em>Vendors cannot add items to cart.</em></p>
+            {% endif %}
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a> to purchase this item.</p>
+        {% endif %}
+    </div>
+
+    <div class="reviews-section">
+        <h2>Customer Reviews</h2>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_review' product.id %}" class="btn btn-review">Write a Review</a>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a> to leave a review.</p>
+        {% endif %}
+
+        <hr>
+
+        {% for review in reviews %}
+            <div class="review-card">
+                <div>
+                    <strong>{{ review.user.username }}</strong>
+                    {% if review.is_verified %}
+                        <span class="badge-verified">✓ Verified Purchase</span>
+                    {% else %}
+                        <span class="badge-unverified">Unverified Review</span>
+                    {% endif %}
+                </div>
+                <div class="rating">Rating: {{ review.rating }}/5</div>
+                <p>{{ review.content }}</p>
+                <small style="color: #888;">Posted on: {{ review.created_at|date:"F j, Y" }}</small>
+            </div>
+        {% empty %}
+            <p>No reviews yet for this product. Be the first to review it!</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

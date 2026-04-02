@@ -1,0 +1,13 @@
+<h2>Edit Product: {{ product.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Name: <input type="text" name="name" value="{{ product.name }}" required></p>
+    <p>Description: <textarea name="description" required>{{ product.description }}</textarea></p>
+    <p>Price: <input type="number" step="0.01" name="price" value="{{ product.price }}" required></p>
+    <p>Stock: <input type="number" name="stock" value="{{ product.stock }}" required></p>
+    
+    <button type="submit">Update Product</button>
+</form>
+
+<a href="{% url 'manage_products' product.store.id %}">Cancel</a>

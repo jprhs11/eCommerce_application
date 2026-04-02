@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Store - {{ store.name }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; line-height: 1.6; }
+        .btn { padding: 10px 15px; text-decoration: none; border-radius: 5px; display: inline-block; }
+        .btn-add { background-color: #28a745; color: white; }
+        .btn-back { background-color: #6c757d; color: white; margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; }
+        .actions a { margin-right: 10px; color: #007bff; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <h1>Managing: {{ store.name }}</h1>
+    <p><em>{{ store.description }}</em></p>
+
+    <!-- Navigation -->
+    <a href="{% url 'add_product' store.id %}" class="btn btn-add">+ Add New Product</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td><strong>{{ product.name }}</strong></td>
+                <td>${{ product.price }}</td>
+                <td>{{ product.stock }} units</td>
+                <td class="actions">
+                    <a href="{% url 'edit_product' product.id %}">Edit</a>
+                    <a href="{% url 'delete_product' product.id %}" style="color: red;" onclick="return confirm('Delete this product?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center; color: #666;">No products found in this store.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'vendor_store_list' %}" class="btn btn-back">← Back to My Stores</a>
+
+</body>
+</html>
+

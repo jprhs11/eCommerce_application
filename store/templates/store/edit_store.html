@@ -1,0 +1,12 @@
+<h2>Edit Store: {{ store.name }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Store Name: <input type="text" name="name" value="{{ store.name }}" required></p>
+    <p>Description: <textarea name="description">{{ store.description }}</textarea></p>
+    
+    <button type="submit">Update Store Settings</button>
+</form>
+
+<br>
+<a href="{% url 'vendor_store_list' %}">Cancel</a>

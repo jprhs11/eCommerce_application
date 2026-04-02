@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vendor Dashboard</title>
+</head>
+<body>
+    <h1>Your Vendor Dashboard</h1>
+<p>Welcome, {{ user.username }}!</p>
+
+<a href="{% url 'create_store' %}" style="background: blue; color: white; padding: 10px;">
+    + Create a Store
+</a>
+
+<hr>
+
+<h3>Your Active Stores:</h3>
+<ul>
+    {% for store in stores %}
+        <li><strong>{{ store.name }}</strong> - <a href="{% url 'manage_products' store.id %}">Manage</a></li>
+    {% empty %}
+        <!-- This shows if you have 0 stores in the database -->
+        <p style="color: gray;">You don't have any stores yet. Click the blue button above to start!</p>
+    {% endfor %}
+</ul>
+    <p><a href="{% url 'product_list' %}">Back to Homepage</a></p>
+    <ul>
+    {% for store in stores %}
+        <li>
+            <strong>{{ store.name }}</strong>
+            <br>
+            <a href="{% url 'manage_products' store.id %}">Manage Products</a> | 
+            <a href="{% url 'edit_store' store.id %}">Edit Store Info</a> | 
+            <a href="{% url 'delete_store' store.id %}" 
+               style="color: red;" 
+               onclick="return confirm('Are you sure? This will delete all products in this store too!')">
+               Delete Store
+            </a>
+        </li>
+        <hr>
+    {% empty %}
+        <p>No stores yet.</p>
+    {% endfor %}
+</ul>
+</body>
+</html>

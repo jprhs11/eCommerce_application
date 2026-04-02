@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>eCommerce Shop - Home</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 20px; line-height: 1.6; background-color: #f4f4f4; }
+        nav { background: #333; color: white; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; font-weight: bold; }
+        .container { max-width: 1000px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .product-card { border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        .btn { padding: 8px 12px; border-radius: 4px; text-decoration: none; color: white; font-weight: bold; }
+        .btn-add { background-color: #28a745; }
+        .btn-view { background-color: #007bff; }
+        .btn-logout { background-color: #dc3545; border: none; cursor: pointer; }
+        .price { color: #b12704; font-size: 1.2em; font-weight: bold; }
+        .store-tag { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{% url 'product_list' %}">Home</a>
+        {% if user.is_authenticated %}
+            {% if user.profile.role == 'vendor' %}
+                <a href="{% url 'vendor_store_list' %}">My Stores (Vendor)</a>
+            {% endif %}
+            <a href="{% url 'view_cart' %}">Cart</a>
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-logout">Logout</button>
+            </form>
+            <span style="float:right;">Logged in as: <strong>{{ user.username }}</strong> ({{ user.profile.role }})</span>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </nav>
+
+    <h1>All Products</h1>
+    <p>Browse items from all our vendors below.</p>
+    <hr>
+
+    <!-- Product Grid -->
+    <div class="product-list">
+        {% for product in products %}
+            <div class="product-card">
+                <div>
+                    <h3>{{ product.name }}</h3>
+                    <p class="store-tag">Sold by: <strong>{{ product.store.name }}</strong></p>
+                    <p class="price">${{ product.price }}</p>
+                </div>
+                <div>
+                    <!-- Link to Detail Page -->
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-view">View Details</a>
+                    
+                    <!-- Add to Cart (Only for Buyers/Logged in users) -->
+                    {% if user.profile.role == 'buyer' or not user.is_authenticated %}
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-add">Add to Cart</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div style="text-align: center; padding: 40px;">
+                <p>No products available yet. Check back soon!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>
