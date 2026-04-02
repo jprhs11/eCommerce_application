@@ -1,7 +1,7 @@
 🛒 Django eCommerce Ecosystem
 A full-stack eCommerce application featuring a dual-user system for Vendors and Buyers. This project focuses on secure role-based access, session-based shopping experiences, and automated post-purchase workflows.
 
-🚀 Key Features
+🚀 Key Features:
 
 👤 Role-Based User System
 Vendors: Can create and manage unique stores. Full CRUD functionality (Create, Read, Update, Delete) for store listings and product inventories.
