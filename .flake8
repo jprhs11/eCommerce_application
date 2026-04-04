@@ -1,0 +1,15 @@
+[flake8]
+# Ignore specific errors if needed
+ignore = E203, E501, W503
+# Exclude folders that shouldn't be checked
+exclude = 
+    .git,
+    __pycache__,
+    dist,
+    .venv,
+    venv,
+    migrations,
+    manage.py,
+    settings.py
+# Max allowed line length changed to 79 (PEP 8 standard)
+max-line-length = 79
