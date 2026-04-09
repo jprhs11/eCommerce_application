@@ -12,22 +12,40 @@
         <p class="price" style="font-size: 2.5rem; color: var(--danger); font-weight: 800; margin: 1rem 0;">${{ product.price }}</p>
         <p style="font-size: 1.1rem; color: #4b5563; max-width: 700px;">{{ product.description }}</p>
         
-        <!-- Quantity Selector Section -->
-        <div style="margin-top: 2rem; padding: 1.5rem; background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px; max-width: 400px;">
+        <!-- Add to Cart / Quantity Modal Trigger -->
+        <div style="margin-top: 2rem;">
             {% if user.is_authenticated %}
                 {% if user.profile.role == 'buyer' or user.is_superuser %}
                     {% if product.stock > 0 %}
-                        <form action="{% url 'add_to_cart' product.id %}" method="POST" style="display: flex; align-items: flex-end; gap: 1rem;">
-                            {% csrf_token %}
-                            <div style="flex: 1;">
-                                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.5rem; color: var(--dark);">QUANTITY:</label>
-                                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--primary); border-radius: 6px; font-weight: bold; text-align: center;">
+                        <!-- Trigger Button -->
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#qtyModal" style="padding: 1rem 2.5rem; font-size: 1.1rem; background-color: #ffa41c; color: black; border: 1px solid #ff8f00;">
+                            Add to Cart
+                        </button>
+
+                        <!-- Quantity Popup Modal -->
+                        <div class="modal fade" id="qtyModal" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Select Quantity</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form action="{% url 'add_to_cart' product.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <div class="modal-body" style="text-align: center; padding: 2rem;">
+                                            <p style="margin-bottom: 1.5rem; color: #6b7280;">How many <strong>{{ product.name }}</strong>?</p>
+                                            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" 
+                                                   style="width: 120px; font-size: 1.5rem; text-align: center; padding: 10px; border: 2px solid var(--primary); border-radius: 8px;">
+                                            <p style="margin-top: 10px; font-size: 0.85rem; color: #9ca3af;">Available: {{ product.stock }}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn" data-bs-dismiss="modal" style="background: #f3f4f6;">Cancel</button>
+                                            <button type="submit" class="btn btn-success">Confirm & Add</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-success" style="height: 50px; padding: 0 2rem; white-space: nowrap;">
-                                Add to Cart
-                            </button>
-                        </form>
+                        </div>
                     {% else %}
                         <p style="color: var(--danger); font-weight: bold; margin: 0;">⚠️ This item is currently sold out.</p>
                     {% endif %}
@@ -54,11 +72,18 @@
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
                     <div>
                         <strong style="font-size: 1.1rem;">{{ review.user.username }}</strong>
+                        
+                        <!-- VERIFICATION BADGE -->
+                        {% if review.is_verified %}
+                            <span style="background-color: #d4edda; color: #155724; padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: bold; border: 1px solid #c3e6cb; margin-left: 10px;">✓ Verified Purchase</span>
+                        {% else %}
+                            <span style="background-color: #f3f4f6; color: #6b7280; padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-style: italic; border: 1px solid #e5e7eb; margin-left: 10px;">Unverified Review</span>
+                        {% endif %}
                     </div>
                     <div style="color: #f59e0b; font-weight: bold;">Rating: {{ review.rating }}/5</div>
                 </div>
                 <p style="margin: 0.5rem 0; color: #374151;">{{ review.content }}</p>
-                <small style="color: #9ca3af;">Posted {{ review.created_at|timesince }} ago</small>
+                <small style="color: #9ca3af;">Posted {{ review.created_at|date:"F j, Y" }}</small>
             </div>
         {% empty %}
             <p style="color: #9ca3af; text-align: center; padding: 2rem;">No reviews yet.</p>

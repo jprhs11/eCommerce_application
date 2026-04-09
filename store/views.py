@@ -296,21 +296,20 @@ def checkout(request):
 
 @login_required
 def add_review(request, product_id):
-    """Allow users to leave verified or unverified reviews."""
     product = get_object_or_404(Product, id=product_id)
     if request.method == "POST":
-        # Check if the user has a confirmed purchase for 'Verified' status
         has_purchased = OrderItem.objects.filter(
-            order__buyer=request.user, product=product
+            order__buyer=request.user,
+            product=product
         ).exists()
 
-        # Save the user feedback to the database
         Review.objects.create(
             product=product,
             user=request.user,
             content=request.POST.get('content'),
             rating=request.POST.get('rating'),
-            is_verified=has_purchased
+            is_verified=has_purchased  # Save the result here
         )
+        messages.success(request, "Review submitted!")
         return redirect('product_detail', product_id=product.id)
     return render(request, 'store/add_review.html', {'product': product})
