@@ -1,44 +1,25 @@
-<<<<<<< HEAD
-# eCommerce_application
-A Django-based eCommerce platform featuring multi-user roles, session-based shopping, and automated email invoicing.
-=======
-Django eCommerce Platform
-A robust eCommerce system built with Django and MariaDB, designed to support a dual-ecosystem of Vendors and Buyers.
-📋 Features
-User Roles & Permissions
-Vendors: Create and manage stores, list products, and track inventory.
-Buyers: Browse stores, manage a session-based cart, and checkout.
-Authentication: Secure login/registration with custom permissions and token-based password recovery via email.
-Core Functionality
-Session Cart: Persistent cart management while browsing without requiring immediate database writes.
-Automated Invoicing: Seamless checkout process that clears carts and sends PDF/HTML invoices to the buyer's email.
-Verified Reviews: Automatic detection of "Verified Purchase" status for user reviews based on order history.
-Data Integrity: Relational database architecture using MariaDB for scalable data management.
-🛠️ Tech Stack
-Backend: Django (Python)
-Database: MariaDB / MySQL
-Authentication: Django Auth & Custom Permissions
-Communication: Django Mail for Invoices & Password Resets
-🚀 Getting Started
-Clone the repository
-bash
-git clone <your-repo-url>
-Use code with caution.
+🛒 Django eCommerce Ecosystem A full-stack eCommerce application featuring a dual-user system for Vendors and Buyers. This project focuses on secure role-based access, session-based shopping experiences, and automated post-purchase workflows.
 
-Install dependencies
-bash
-pip install django mysqlclient
-Use code with caution.
+🚀 Key Features:
 
-Configure Database
-Update the DATABASES setting in settings.py with your MariaDB credentials.
-Run Migrations
-bash
-python manage.py migrate
-Use code with caution.
+👤 Role-Based User System Vendors: Can create and manage unique stores. Full CRUD functionality (Create, Read, Update, Delete) for store listings and product inventories. Buyers: Can browse products from various vendors, manage a persistent shopping cart, and complete checkouts.
 
-Start the Server
-bash
-python manage.py runserver
-Use code with caution.
->>>>>>> 9a6da6e (Initial application upload)
+💳 Shopping & Checkout Session-Based Cart: Tracks user items locally without requiring a database entry for every cart update, ensuring a fast browsing experience. Automated Invoicing: Upon checkout, the system clears the cart, generates a detailed invoice, and emails it directly to the buyer.
+
+⭐ Verified Review System Smart Logic: Reviews are automatically flagged as "Verified" if the system detects the user has previously purchased that specific product. Open Feedback: Unverified users can still leave reviews, but they are clearly marked as "Unverified" for transparency.
+
+🔒 Security & Authentication Token-Based Recovery: Secure "Forgot Password" workflow using time-sensitive, expiring tokens sent via email. Permission Guards: Custom decorators and mixins to prevent buyers from accessing vendor dashboards and vendors from editing other vendors' stores.
+
+🛠️ Tech Stack Backend: Django (Python) Database: MariaDB (Relational) Communication: SMTP for automated invoices and password resets. Frontend: Django Templates with CSS/JavaScript.
+
+⚙️ Getting Started Prerequisites Python 3.x MariaDB / MySQL Virtual Environment (recommended)
+
+Installation:
+
+Clone the repository: git clone https://github.com cd eCommerce_application
+
+Database Configuration: Update your DATABASES settings in settings.py with your MariaDB credentials.
+
+Apply Migrations: python manage.py migrate
+
+Run the Server: python manage.py runserver
