@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Vendor Dashboard{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h1>Your Vendor Dashboard</h1>
+        <a href="{% url 'create_store' %}" class="btn btn-add">+ Create a Store</a>
+    </div>
+
+    <p>Welcome, <strong>{{ user.username }}</strong>! Manage your digital storefronts below.</p>
+    <hr>
+
+    <div class="store-list">
+        {% for store in stores %}
+            <div style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h3 style="margin: 0;">{{ store.name }}</h3>
+                        <p style="color: #666; margin: 5px 0;">{{ store.description|truncatewords:20 }}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <a href="{% url 'manage_products' store.id %}" class="btn btn-view">Manage Products</a>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee; font-size: 0.9em;">
+                    <a href="{% url 'edit_store' store.id %}" style="margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold;">Edit Store Info</a>
+                    <a href="{% url 'delete_store' store.id %}" 
+                       style="color: #dc3545; text-decoration: none; font-weight: bold;" 
+                       onclick="return confirm('Are you sure? This will delete all products in this store too!')">
+                       Delete Store
+                    </a>
+                </div>
+            </div>
+        {% empty %}
+            <div style="text-align: center; padding: 60px; background: #f9f9f9; border-radius: 8px;">
+                <p style="font-size: 1.2em; color: #666;">You don't have any stores yet.</p>
+                <a href="{% url 'create_store' %}" class="btn btn-add">Click here to start your first store!</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'product_list' %}" style="text-decoration: none; color: #666;">← Back to Homepage</a>
+    </div>
+{% endblock %}
+

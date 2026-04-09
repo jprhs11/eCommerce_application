@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Successful{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 40px 20px;">
+    <div style="font-size: 4rem; color: #28a745; margin-bottom: 20px;">✓</div>
+    <h1>Thank You for Your Purchase!</h1>
+    <p style="font-size: 1.1em; color: #555;">Your order <strong>#{{ order.id }}</strong> has been successfully placed.</p>
+    
+    <div style="background: #f9f9f9; border: 1px solid #ddd; padding: 20px; border-radius: 8px; max-width: 500px; margin: 30px auto;">
+        <p>An invoice has been sent to your registered email address.</p>
+        <p><small>(Note: Since this is a development environment, please check your <strong>terminal/console</strong> to see the email output.)</small></p>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <a href="{% url 'product_list' %}" class="btn btn-view">Return to Shop</a>
+    </div>
+</div>
+{% endblock %}

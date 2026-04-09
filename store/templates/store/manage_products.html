@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Store - {{ store.name }}{% endblock %}
+
+{% block content %}
+    <h1>Managing: {{ store.name }}</h1>
+    <p><em>{{ store.description }}</em></p>
+
+    <!-- Navigation -->
+    <a href="{% url 'add_product' store.id %}" class="btn btn-add" style="margin-bottom: 20px;">+ Add New Product</a>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead style="background-color: #f8f9fa;">
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Product Name</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Price</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Stock</th>
+                <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+            <tr>
+                <td style="border: 1px solid #ddd; padding: 12px;"><strong>{{ product.name }}</strong></td>
+                <td style="border: 1px solid #ddd; padding: 12px;">${{ product.price }}</td>
+                <td style="border: 1px solid #ddd; padding: 12px;">{{ product.stock }} units</td>
+                <td style="border: 1px solid #ddd; padding: 12px;">
+                    <a href="{% url 'edit_product' product.id %}" style="margin-right: 10px; color: #007bff; text-decoration: none; font-weight: bold;">Edit</a>
+                    <a href="{% url 'delete_product' product.id %}" style="color: #dc3545; text-decoration: none; font-weight: bold;" onclick="return confirm('Delete this product?')">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="border: 1px solid #ddd; padding: 40px; text-align: center; color: #666;">No products found in this store.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top: 30px;">
+        <a href="{% url 'vendor_store_list' %}" class="btn" style="background-color: #6c757d;">← Back to My Stores</a>
+    </div>
+{% endblock %}
+

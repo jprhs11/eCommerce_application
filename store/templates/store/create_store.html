@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Create a New Store{% endblock %}
+
+{% block content %}
+    <h2>Create a New Store</h2>
+    <p>Set up your digital storefront to start listing products.</p>
+
+    <form method="POST" style="background: #f9f9f9; padding: 20px; border: 1px solid #ddd; max-width: 500px; border-radius: 5px;">
+        {% csrf_token %}
+        <p>
+            <strong>Store Name:</strong><br>
+            <input type="text" name="name" style="width: 100%; padding: 8px; margin-top: 5px;" placeholder="e.g. My Awesome Shop" required>
+        </p>
+        <p>
+            <strong>Description:</strong><br>
+            <textarea name="description" style="width: 100%; padding: 8px; margin-top: 5px;" rows="4" placeholder="What do you sell?"></textarea>
+        </p>
+        <button type="submit" class="btn btn-add">Create Store</button>
+        <a href="{% url 'vendor_store_list' %}" style="margin-left: 10px; color: #666; text-decoration: none;">Cancel</a>
+    </form>
+{% endblock %}

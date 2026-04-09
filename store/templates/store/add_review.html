@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Write a Review{% endblock %}
+
+{% block content %}
+    <h1>Reviewing: {{ product.name }}</h1>
+    <p>Share your thoughts about this product.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label>Rating (1-5):</label><br>
+        <select name="rating" style="padding: 8px; margin-bottom: 15px;">
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+        </select>
+        <br>
+
+        <label>Your Review:</label><br>
+        <textarea name="content" rows="5" style="width: 100%; max-width: 500px; padding: 8px;" required></textarea>
+        <br><br>
+
+        <button type="submit" class="btn btn-view">Submit Review</button>
+    </form>
+
+    <br>
+    <a href="{% url 'product_detail' product.id %}">Cancel and Go Back</a>
+{% endblock %}
+

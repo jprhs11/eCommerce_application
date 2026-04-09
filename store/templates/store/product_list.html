@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}All Products - ShopSmart{% endblock %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <div>
+            <h1 style="margin: 0;">All Products</h1>
+            <p style="color: #6b7280; margin: 5px 0 0 0;">Browse items from all our verified vendors.</p>
+        </div>
+    </div>
+    <hr style="border: 0; border-top: 1px solid #e5e7eb; margin-bottom: 2rem;">
+
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="card" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="margin: 0 0 5px 0;">{{ product.name }}</h3>
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 8px;">
+                        Sold by: <strong style="color: var(--dark);">{{ product.store.name }}</strong>
+                    </p>
+                    <p class="price" style="margin: 0;">${{ product.price }}</p>
+                    <p style="font-size: 0.85rem; margin-top: 5px;">
+                        Status: 
+                        {% if product.stock > 0 %}
+                            <span style="color: var(--success); font-weight: 600;">In Stock ({{ product.stock }})</span>
+                        {% else %}
+                            <span style="color: var(--danger); font-weight: 600;">Out of Stock</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <a href="{% url 'product_detail' product.id %}" class="btn btn-primary">View Details</a>
+                    
+                    {% if user.profile.role == 'buyer' or not user.is_authenticated %}
+                        {% if product.stock > 0 %}
+                            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-success">Add to Cart</a>
+                        {% else %}
+                            <button class="btn" style="background: #e5e7eb; color: #9ca3af; cursor: not-allowed;" disabled>Sold Out</button>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div style="text-align: center; padding: 60px; color: #6b7280;">
+                <p style="font-size: 1.2rem;">No products available yet. Check back soon!</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+

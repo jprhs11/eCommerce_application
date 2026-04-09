@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 450px; margin: auto;">
+    <h2 style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5rem;">Create Account</h2>
+    <p style="text-align: center; color: #6b7280; margin-bottom: 2rem;">Join the marketplace today.</p>
+
+    <form method="post" class="card" style="padding: 2rem;">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div style="margin-bottom: 0.5rem;">
+                <label style="font-weight: 600; font-size: 0.9rem;">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small style="display: block; color: #9ca3af; margin-top: -1rem; margin-bottom: 1rem;">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div style="color: var(--danger); font-size: 0.8rem; margin-top: -1rem; margin-bottom: 1rem;">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign Up</button>
+    </form>
+
+    <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
+        Already have an account? <a href="{% url 'login' %}" style="color: var(--primary); font-weight: 600;">Log in</a>
+    </p>
+</div>
+{% endblock %}

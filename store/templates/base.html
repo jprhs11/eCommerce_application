@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}eCommerce Shop{% endblock %}</title>
+    <style>
+    :root {
+        --primary: #2563eb;    /* Royal Blue */
+        --success: #16a34a;    /* Emerald Green */
+        --danger: #dc2626;     /* Soft Red */
+        --warning: #f59e0b;    /* Amber */
+        --dark: #1f2937;       /* Slate Grey */
+        --light: #f9fafb;
+    }
+
+    body { font-family: 'Inter', system-ui, sans-serif; margin: 0; background-color: #f3f4f6; color: var(--dark); line-height: 1.5; }
+    
+    /* Modern Navbar */
+    nav { background: var(--dark); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    nav a { color: #d1d5db; text-decoration: none; font-weight: 500; transition: color 0.2s; margin-right: 1.5rem; }
+    nav a:hover { color: white; }
+    
+    /* Container & Cards */
+    .container { max-width: 1100px; margin: 2rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+    .card { border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+
+    /* Forms */
+    input, textarea, select { 
+        width: 100%; padding: 0.75rem; margin-top: 0.5rem; margin-bottom: 1.25rem; 
+        border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; font-size: 1rem;
+    }
+    input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+
+    /* Unified Buttons */
+    .btn { 
+        display: inline-block; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; 
+        text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s; font-size: 0.95rem;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-success { background: var(--success); color: white; }
+    .btn-danger { background: var(--danger); color: white; }
+    
+    /* Messages */
+    .alert { padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-weight: 500; border-left: 5px solid; }
+    .alert-success { background: #ecfdf5; color: #065f46; border-color: var(--success); }
+    .alert-error { background: #fef2f2; color: #991b1b; border-color: var(--danger); }
+    </style>
+</head>
+<script src="https://jsdelivr.net"></script>
+<body>
+
+<div class="container">
+    <nav>
+        <div>
+            <a href="{% url 'product_list' %}">Home</a>
+            {% if user.is_authenticated %}
+                {% if user.profile.role == 'vendor' %}
+                    <a href="{% url 'vendor_store_list' %}">My Stores</a>
+                {% endif %}
+                <a href="{% url 'view_cart' %}">Cart</a>
+            {% endif %}
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <span style="margin-right:15px;"><strong>{{ user.username }}</strong> ({{ user.profile.role }})</span>
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register_view' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- NEW: Global Message Display -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% block content %}
+    <!-- Page specific content goes here -->
+    {% endblock %}
+</div>
+
+</body>
+</html>
+

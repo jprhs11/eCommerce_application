@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Store: {{ store.name }}{% endblock %}
+
+{% block content %}
+    <h2>Edit Store: {{ store.name }}</h2>
+    <p>Modify your store's public identity.</p>
+
+    <form method="POST" style="background: #f9f9f9; padding: 20px; border: 1px solid #ddd; max-width: 500px; border-radius: 5px;">
+        {% csrf_token %}
+        <p>
+            <strong>Store Name:</strong><br>
+            <input type="text" name="name" value="{{ store.name }}" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+        </p>
+        <p>
+            <strong>Description:</strong><br>
+            <textarea name="description" style="width: 100%; padding: 8px; margin-top: 5px;" rows="4">{{ store.description }}</textarea>
+        </p>
+        
+        <button type="submit" class="btn btn-view">Update Store Settings</button>
+        <a href="{% url 'vendor_store_list' %}" style="margin-left: 10px; color: #666; text-decoration: none;">Cancel</a>
+    </form>
+{% endblock %}
+

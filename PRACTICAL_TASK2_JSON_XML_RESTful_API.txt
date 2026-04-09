@@ -1,0 +1,60 @@
+PRACTICAL TASK 2:
+
+1. Do some research on the Python requests module. Explain what it is, and how it is used to make HTTP requests:
+
+The Requests module is a popular tool for Python that acts like a translator between your code and the internet, you can think of it as a simplified way for your script to act like a web browser. While Python has built-in tools for this, they are often complicated to use. Requests makes the process much more human-friendly.
+It uses simple commands to send HTTP requests (like "GET" to fetch a page or "POST" to send data to a form). When you give it a URL, it handles all the technical background work like connecting to the server and waiting for a reply and hands you back a Response object containing the data you wanted.
+
+
+2. Document your independent findings on the JSON and XML data formats and what they are used for. List at least four advantages and four disadvantages of each data format:
+
+These are two different ways to package information so it can be sent from one computer to another, JSON(JavaScript Object Notation) stores data in key-value pairs, looking very similar to a Python dictionary. 
+XML (eXtensible Markup Language) uses tags to wrap data, similar to how HTML works.
+
+Advantages of JSON:
+
+It uses very few characters so files are smaller and faster to send.
+Its clean and simple for humans to scan through.
+Computers can read and understand it much faster than XML.
+It works well with JavaScript and most other modern programming languages without extra tools.
+
+Disadvantages of JSON:
+
+JSoN has very limited data types.
+You cannot leave nptes inside of the file to explain data.
+It doesn't have a built in way to force data to follow a strict format.
+It can be vulnerable to injection attacks if not handled carefully.
+
+Advantages of XML:
+
+You can use a schema to force data to follow exact strict rules.
+You can add comments inside the file to explain things.
+You can create any tag names you want to describe complex data
+It is great at storing extra background info about the data itself.
+
+Disadvantages of XML:
+
+All those opening and closing tags make the files much larger.
+Because the files are bigger and more complex, they take more power and time to read.
+It’s much harder for a human to read because of all the extra tag text.
+It requires specialized parsers that are harder to set up than JSON.
+
+
+3. Provide a brief explanation of what a RESTful API is, how it works and what it is used for. List at least four advantages and four disadvantages of RESTful APIs:
+
+A RESTful API is a set of rules that allows two different pieces of software to talk to each other over the web, It treats everything as a resource (like a User or a Photo). Each resource has its own unique URL. You interact with it using standard actions: GET, POST, PUT or DELETE.
+It's the standard way for a mobile app to get data from a server or for different websites to share info like using your Google account to log into a different site.
+
+Advantages of RESTful API's:
+
+It is stateless, so the server doesn't have to remember your past requests, making it easier to handle millions of users.
+It can send back data in many formats, including JSON or XML.
+It uses web caching, so if you ask for the same thing twice, it can give you the answer instantly from memory.
+You can change the look of your app without having to change how the database works.
+
+Disadvantages of RESTful API's:
+
+Sometimes it gives you way more data than you actually asked for.
+You might have to make several separate requests just to get all the info for one screen.
+Because it's an architectural style and not a strict protocol, every developer designs their API a bit differently.
+Since every request must be complete on its own, sensitive data like tokens has to be sent back and forth constantly.

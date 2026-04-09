@@ -1,0 +1,1 @@
+asgiref==3.11.1certifi==2026.2.25charset-normalizer==3.4.7Django==6.0.3docopt==0.6.2flake8==7.3.0idna==3.11mccabe==0.7.0pipreqs==0.4.13pycodestyle==2.14.0pyflakes==3.4.0requests==2.33.1sqlparse==0.5.5tzdata==2026.1urllib3==2.6.3yarg==0.1.10  
