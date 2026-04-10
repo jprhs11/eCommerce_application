@@ -8,8 +8,5 @@ exclude =
     dist,
     .venv,
     venv,
-    migrations,
-    manage.py,
-    settings.py
 # Max allowed line length changed to 79 (PEP 8 standard)
 max-line-length = 79
