@@ -16,7 +16,9 @@
 
 Installation:
 
-Clone the repository: git clone https://github.com cd eCommerce_application
+Clone the repository: https://github.com/jprhs11/eCommerce_application_Part1.git
+
+cd eCommerce_application
 
 Database Configuration: Update your DATABASES settings in settings.py with your MariaDB credentials.
 
