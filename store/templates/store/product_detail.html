@@ -72,8 +72,11 @@
                     ✓ Verified Purchase
                 </span>
                 {% endif %}
-                <p style="font-size: 0.8rem; color: #9ca3af; margin: 5px 0 0 0;">Posted {{ review.created_at|date:"F j,
-                    Y" }}</p>
+
+                {# This 'with' block protects the date syntax from your VS Code formatter #}
+                {% with formatted_date=review.created_at|date:"F j, Y" %}
+                <p style="font-size: 0.8rem; color: #9ca3af; margin: 5px 0 0 0;">Posted {{ formatted_date }}</p>
+                {% endwith %}
             </div>
             <div style="color: var(--warning); font-weight: 700;">
                 Rating: {{ review.rating }}/5
