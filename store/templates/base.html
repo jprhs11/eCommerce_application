@@ -1,96 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}eCommerce Shop{% endblock %}</title>
+    <title>{% block title %}ShopSmart eCommerce{% endblock %}</title>
     <style>
-    :root {
-        --primary: #2563eb;    /* Royal Blue */
-        --success: #16a34a;    /* Emerald Green */
-        --danger: #dc2626;     /* Soft Red */
-        --warning: #f59e0b;    /* Amber */
-        --dark: #1f2937;       /* Slate Grey */
-        --light: #f9fafb;
-    }
+        :root {
+            --primary: #2563eb;
+            /* Royal Blue */
+            --success: #16a34a;
+            /* Emerald Green */
+            --danger: #dc2626;
+            /* Soft Red */
+            --warning: #f59e0b;
+            /* Amber */
+            --dark: #1f2937;
+            /* Slate Grey */
+            --light: #f9fafb;
+        }
 
-    body { font-family: 'Inter', system-ui, sans-serif; margin: 0; background-color: #f3f4f6; color: var(--dark); line-height: 1.5; }
-    
-    /* Modern Navbar */
-    nav { background: var(--dark); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-    nav a { color: #d1d5db; text-decoration: none; font-weight: 500; transition: color 0.2s; margin-right: 1.5rem; }
-    nav a:hover { color: white; }
-    
-    /* Container & Cards */
-    .container { max-width: 1100px; margin: 2rem auto; background: white; padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-    .card { border: 1px solid #e5e7eb; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
-    .card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            background-color: #f3f4f6;
+            color: var(--dark);
+            line-height: 1.5;
+        }
 
-    /* Forms */
-    input, textarea, select { 
-        width: 100%; padding: 0.75rem; margin-top: 0.5rem; margin-bottom: 1.25rem; 
-        border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; font-size: 1rem;
-    }
-    input:focus { outline: 2px solid var(--primary); border-color: transparent; }
+        /* Modern Navbar */
+        nav {
+            background: var(--dark);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 8px 8px 0 0;
+        }
 
-    /* Unified Buttons */
-    .btn { 
-        display: inline-block; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: 600; 
-        text-decoration: none; border: none; cursor: pointer; transition: opacity 0.2s; font-size: 0.95rem;
-    }
-    .btn:hover { opacity: 0.9; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-success { background: var(--success); color: white; }
-    .btn-danger { background: var(--danger); color: white; }
-    
-    /* Messages */
-    .alert { padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-weight: 500; border-left: 5px solid; }
-    .alert-success { background: #ecfdf5; color: #065f46; border-color: var(--success); }
-    .alert-error { background: #fef2f2; color: #991b1b; border-color: var(--danger); }
+        nav a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            margin-right: 1.5rem;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+
+        /* Container & Cards */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            background: white;
+            padding: 0;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .content-area {
+            padding: 2.5rem;
+        }
+
+        .card {
+            border: 1px solid #e5e7eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        /* Unified Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        /* Messages */
+        .messages-container {
+            padding: 1rem 2.5rem 0 2.5rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            border-left: 5px solid;
+            list-style: none;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            color: #065f46;
+            border-color: var(--success);
+        }
+
+        .alert-error,
+        .alert-warning {
+            background: #fef2f2;
+            color: #991b1b;
+            border-color: var(--danger);
+        }
     </style>
 </head>
-<script src="https://jsdelivr.net"></script>
+
 <body>
 
-<div class="container">
-    <nav>
-        <div>
-            <a href="{% url 'product_list' %}">Home</a>
-            {% if user.is_authenticated %}
+    <div class="container">
+        <nav>
+            <div>
+                <a href="{% url 'product_list' %}">Home</a>
+
+                {# Reviewer Fix: Check authentication status first to prevent Profile errors #}
+                {% if user.is_authenticated %}
                 {% if user.profile.role == 'vendor' %}
-                    <a href="{% url 'vendor_store_list' %}">My Stores</a>
+                <a href="{% url 'vendor_store_list' %}">My Stores</a>
                 {% endif %}
+
+                {% if user.profile.role == 'buyer' %}
                 <a href="{% url 'view_cart' %}">Cart</a>
-            {% endif %}
-        </div>
-        <div>
-            {% if user.is_authenticated %}
-                <span style="margin-right:15px;"><strong>{{ user.username }}</strong> ({{ user.profile.role }})</span>
+                {% endif %}
+                {% endif %}
+            </div>
+
+            <div>
+                {% if user.is_authenticated %}
+                <span style="margin-right:15px; font-size: 0.9rem;">
+                    <strong>{{ user.username }}</strong>
+                    <span style="opacity: 0.7;">({{ user.profile.role|title }})</span>
+                </span>
                 <form action="{% url 'logout' %}" method="post" style="display:inline;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-logout">Logout</button>
+                    <button type="submit" class="btn btn-danger" style="padding: 0.4rem 0.8rem;">Logout</button>
                 </form>
-            {% else %}
+                {% else %}
                 <a href="{% url 'login' %}">Login</a>
                 <a href="{% url 'register_view' %}">Register</a>
-            {% endif %}
-        </div>
-    </nav>
+                {% endif %}
+            </div>
+        </nav>
 
-    <!-- NEW: Global Message Display -->
-    {% if messages %}
-        <ul class="messages">
+        {# Display Global Messages #}
+        {% if messages %}
+        <div class="messages-container">
             {% for message in messages %}
-                <li class="alert alert-{{ message.tags }}">{{ message }}</li>
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
             {% endfor %}
-        </ul>
-    {% endif %}
+        </div>
+        {% endif %}
 
-    {% block content %}
-    <!-- Page specific content goes here -->
-    {% endblock %}
-</div>
+        <div class="content-area">
+            {% block content %}
+            <!-- Page specific content will appear here -->
+            {% endblock %}
+        </div>
+    </div>
 
 </body>
-</html>
 
+</html>

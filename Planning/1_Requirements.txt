@@ -1,0 +1,8 @@
+1. User Roles:
+Guests: Can browse the product catalog and view details. They are prompted to log in to purchase or review.
+Buyers: Can add items to a session-based cart, specify quantities, checkout to receive an email invoice, and leave verified reviews.
+Vendors: Can register a business profile, create multiple digital storefronts, and perform CRUD (Create, Read, Update, Delete) operations on their own products.
+2. System Requirements:
+Email Uniqueness: The system must prevent duplicate email registrations to ensure secure password resets.
+Inventory Integrity: Real-time stock deduction upon successful checkout.
+Performance: Use of database optimization (eager loading) to prevent "N+1" query delays during browsing.

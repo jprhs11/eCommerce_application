@@ -1,0 +1,16 @@
+[flake8]
+# Reviewer Requirement: Wrap lines at 79 characters
+max-line-length = 79
+
+# Files to exclude from checking
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    # Reviewer Fix: Ignore migrations as they are auto-generated
+    */migrations/*,
+    # Ignore project config files that often have long lines
+
+# Common ignores to avoid over-checking
+ignore = E121, E126, E127, E128, E203, E225, E226, E231, E241, E251, W503

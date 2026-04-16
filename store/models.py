@@ -1,23 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Profile(models.Model):
     """
     Extends the base User model to include specific roles.
     """
+
     ROLE_CHOICES = (
-        ('vendor', 'Vendor'),
-        ('buyer', 'Buyer'),
+        ("vendor", "Vendor"),
+        ("buyer", "Buyer"),
     )
 
     # One-to-one link ensures each User has exactly one Profile
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     # Store the user's role; defaults to 'buyer' for safety
     role = models.CharField(
-        max_length=10,
-        choices=ROLE_CHOICES,
-        default='buyer'
+        max_length=10, choices=ROLE_CHOICES, default="buyer"
     )
 
     def __str__(self):
@@ -28,10 +29,9 @@ class Store(models.Model):
     """
     Represents a digital storefront owned by a vendor.
     """
+
     vendor = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='stores'
+        User, on_delete=models.CASCADE, related_name="stores"
     )
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -45,10 +45,9 @@ class Product(models.Model):
     """
     Represents an item listed for sale within a specific store.
     """
+
     store = models.ForeignKey(
-        Store,
-        on_delete=models.CASCADE,
-        related_name='products'
+        Store, on_delete=models.CASCADE, related_name="products"
     )
     name = models.CharField(max_length=255)
     description = models.TextField()
@@ -63,6 +62,7 @@ class Order(models.Model):
     """
     Tracks a purchase made by a buyer.
     """
+
     buyer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     total_paid = models.DecimalField(max_digits=10, decimal_places=2)
@@ -72,10 +72,9 @@ class OrderItem(models.Model):
     """
     Individual products tied to a specific order.
     """
+
     order = models.ForeignKey(
-        Order,
-        related_name='items',
-        on_delete=models.CASCADE
+        Order, related_name="items", on_delete=models.CASCADE
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
@@ -86,10 +85,9 @@ class Review(models.Model):
     """
     Model representing a customer review for a specific product.
     """
+
     product = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='reviews'
+        Product, on_delete=models.CASCADE, related_name="reviews"
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
@@ -99,5 +97,16 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        status = 'Verified' if self.is_verified else 'Unverified'
+        status = "Verified" if self.is_verified else "Unverified"
         return f"{self.user.username} - {self.product.name} ({status})"
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

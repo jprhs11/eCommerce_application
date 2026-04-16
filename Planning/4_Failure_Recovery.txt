@@ -1,0 +1,7 @@
+Failure Planning & System Recovery
+1. Concurrency & Stock Failures:
+Race Conditions: The system performs a final stock check at the moment of checkout. If another user bought the last item during the session, the transaction rolls back with a clear error message.
+Transaction Safety: Database operations for orders and stock deduction are handled to ensure data remains consistent even if a crash occurs mid-process.
+2. External Service Failures:
+Email Resilience: The send_mail function is wrapped in try/except blocks. If the SMTP server is down, the order is still recorded, and the error is logged without crashing the user's checkout experience.
+404/500 Errors: Standardized error handling prevents the leakage of sensitive system tracebacks to the end-user.

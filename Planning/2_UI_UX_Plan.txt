@@ -1,0 +1,8 @@
+User Interface & Experience Strategy
+1. Layout Design:
+Grid System: The "All Products" page uses a responsive grid of cards for high scannability.
+Action-Oriented Cards: Each product card includes a quantity selector and an "Add to Cart" button directly on the main list to reduce clicks.
+Contextual Buttons: The "View Details" button is replaced with "Write Review" for registered buyers to encourage user engagement.
+2. Navigation Flow:
+Role-Based Navbar: Vendors see "My Stores," while Buyers and Guests see "Cart."
+Feedback Loops: Django's messages framework provides immediate visual confirmation for actions like "Item Added to Cart" or "Registration Successful."

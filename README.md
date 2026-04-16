@@ -1,27 +1,53 @@
-🛒 Django eCommerce Ecosystem A full-stack eCommerce application featuring a dual-user system for Vendors and Buyers. This project focuses on secure role-based access, session-based shopping experiences, and automated post-purchase workflows.
+# ShopSmart eCommerce Application - Part 1
 
-🚀 Key Features:
+A robust Django-based marketplace allowing Vendors to manage digital stores and Buyers to browse, purchase, and review products.
 
-👤 Role-Based User System Vendors: Can create and manage unique stores. Full CRUD functionality (Create, Read, Update, Delete) for store listings and product inventories. Buyers: Can browse products from various vendors, manage a persistent shopping cart, and complete checkouts.
+## 🚀 Installation & Setup
 
-💳 Shopping & Checkout Session-Based Cart: Tracks user items locally without requiring a database entry for every cart update, ensuring a fast browsing experience. Automated Invoicing: Upon checkout, the system clears the cart, generates a detailed invoice, and emails it directly to the buyer.
+Please follow these steps exactly to get the project running locally:
 
-⭐ Verified Review System Smart Logic: Reviews are automatically flagged as "Verified" if the system detects the user has previously purchased that specific product. Open Feedback: Unverified users can still leave reviews, but they are clearly marked as "Unverified" for transparency.
+### 1. Clone and Enter the Project
+Navigate to the project folder in your terminal:
+`cd eCommerce_application_Part1`
 
-🔒 Security & Authentication Token-Based Recovery: Secure "Forgot Password" workflow using time-sensitive, expiring tokens sent via email. Permission Guards: Custom decorators and mixins to prevent buyers from accessing vendor dashboards and vendors from editing other vendors' stores.
+### 2. Create and Activate Virtual Environment
+**Create the environment:**
+`python -m venv .venv`
 
-🛠️ Tech Stack Backend: Django (Python) Database: MariaDB (Relational) Communication: SMTP for automated invoices and password resets. Frontend: Django Templates with CSS/JavaScript.
+**Activate on Windows:**
+`.venv\Scripts\activate`
 
-⚙️ Getting Started Prerequisites Python 3.x MariaDB / MySQL Virtual Environment (recommended)
+**Activate on Mac/Linux:**
+`source .venv/bin/activate`
 
-Installation:
+### 3. Install Dependencies
+`pip install -r requirements.txt`
 
-Clone the repository: git clone https://github.com cd eCommerce_application
+### 4. Database Configuration
+Ensure your MySQL server is running and a database named `ecommerce_db` exists. Run the migrations to create the tables:
+`python manage.py migrate`
 
-Install dependencies: pip install django mysqlclient
+### 5. Run the Application
+`python manage.py runserver`
 
-Database Configuration: Update your DATABASES settings in settings.py with your MariaDB credentials.
+Visit the application at: `http://127.0.0`
 
-Apply Migrations: python manage.py migrate
+---
 
-Run the Server: python manage.py runserver
+## 📂 Project Structure Note
+
+As requested by the project requirements, a **Planning** folder has been included in the root directory. It contains four separate files addressing:
+1. **1_Requirements.txt**: User roles and system needs.
+2. **2_UI_UX_Plan.txt**: Layout and user journey.
+3. **3_Access_Security.txt**: RBAC and data protection.
+4. **4_Failure_Recovery.txt**: Stock validation and SMTP resilience.
+
+---
+
+## 🛠️ Key Improvements Made
+
+*   **Performance:** Implemented `select_related` and cached template loaders to fix major rendering delays.
+*   **Security:** Corrected logic to prevent duplicate email registrations and blocked vendors from reviewing any products.
+*   **UI/UX:** Added quantity selectors directly to product blocks on the list page and streamlined the guest-to-buyer workflow.
+*   **PEP 8:** All code has been formatted to strictly follow the 79-character line limit.
+

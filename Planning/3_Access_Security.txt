@@ -1,0 +1,9 @@
+Access Control & Data Security Plan
+1. Authorization (RBAC):
+Profile Model: A One-to-One link with the User model stores roles ('vendor' or 'buyer').
+Decorators: Custom @user_passes_test(is_vendor) and standard @login_required decorators protect sensitive management views.
+Ownership Check: Server-side logic ensures vendors can only edit or delete products belonging to their own stores.
+2. Data Security:
+Password Protection: All passwords are hashed using the PBKDF2 algorithm.
+Review Integrity: Vendors are strictly blocked from reviewing their own products or competing products to prevent rating manipulation.
+Validation: Strict form validation prevents duplicate email entries at the database level.essful."

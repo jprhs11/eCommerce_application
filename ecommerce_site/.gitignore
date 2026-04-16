@@ -1,0 +1,23 @@
+# Django specific files
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/
+static/
+
+# Virtual Environment (Matches your '.venv' folder)
+.venv/
+venv/
+env/
+ENV/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# IDE specific (VS Code / PyCharm)
+.vscode/
+.idea/
